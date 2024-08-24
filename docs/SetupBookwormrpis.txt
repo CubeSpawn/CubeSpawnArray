@@ -1,0 +1,55 @@
+Boot Rpi
+scan for IP/update arp - may take several tries
+nmap -sn -n 192.168.1.0/24 | grep 192.168.1 | sort -n
+
+find IP - may take multiple tries, lags by minutes
+arp -a | grep b8:27
+
+Setup Keys:
+
+Probably: cleanup old key
+ssh-keygen -f "/home/cubespawn/.ssh/known_hosts" -R "192.168.1.xx"
+
+add new key
+ssh-copy-id pi@192.168.1.xx
+
+connect
+ssh pi@192.168.1.xx
+
+change hostname and Static IP
+sudo nmtui
+
+change .bashrc prompt string
+nano .bashrc
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\] Holddown-01 :\[\033[01;34m\]\w \$\[\033[00m\] '
+
+logout/login
+exit
+ssh-copy-id pi@192.168.1.xx
+
+should have correct IP/Hostname/Prompt
+
+move in files
+GUI sftp://pi@192.168.1.xx
+
+connect to repo folders
+
+copy in MQTT
+
+setup venv
+cd to ~ on client
+python -m venv MQTT
+cd MQTT
+source MQTT/bin/activate
+
+pip in requirements:
+pip install paho-mqtt
+pip install psutil
+
+customize pub_loop.py
+
+Deactivate virtual environment
+
+deactivate
+
